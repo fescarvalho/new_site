@@ -229,7 +229,9 @@ function FormField({
       {textarea ? (
         <textarea
           id={id}
+          name={id}
           rows={5}
+          required
           className={`${baseClasses} resize-none`}
           placeholder={`Sua ${label.toLowerCase()}...`}
           onFocus={() => setFocused(true)}
@@ -238,7 +240,9 @@ function FormField({
       ) : (
         <input
           id={id}
+          name={id}
           type={type}
+          required
           className={baseClasses}
           placeholder={`Seu ${label.toLowerCase()}...`}
           onFocus={() => setFocused(true)}
@@ -268,6 +272,38 @@ export default function Contact() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const formInView = useInView(formRef, { once: true, amount: 0.2 });
+
+  const [formStatus, setFormStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setFormStatus("submitting");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch(`https://formspree.io/f/${process.env.NEXT_PUBLIC_FORMSPREE_ID}`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setFormStatus("success");
+        form.reset();
+        setTimeout(() => setFormStatus("idle"), 5000);
+      } else {
+        setFormStatus("error");
+        setTimeout(() => setFormStatus("idle"), 5000);
+      }
+    } catch (err) {
+      setFormStatus("error");
+      setTimeout(() => setFormStatus("idle"), 5000);
+    }
+  };
 
   return (
     <section id="contato" ref={sectionRef} className="relative py-32 md:py-40 overflow-hidden">
@@ -300,7 +336,7 @@ export default function Contact() {
             className="lg:col-span-3"
           >
             <form
-              onSubmit={(e) => e.preventDefault()}
+              onSubmit={handleSubmit}
               className="space-y-6 p-8 rounded-xl border border-white/[0.04] bg-white/[0.015]"
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -314,15 +350,26 @@ export default function Contact() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="group relative flex items-center justify-center gap-2 w-full py-3.5
-                           bg-cyber text-black text-sm font-semibold rounded-lg overflow-hidden
-                           hover:shadow-[0_0_30px_rgba(0,212,255,0.3)] transition-shadow duration-500"
+                disabled={formStatus === "submitting" || formStatus === "success"}
+                className={`group relative flex items-center justify-center gap-2 w-full py-3.5
+                           text-sm font-semibold rounded-lg overflow-hidden transition-all duration-500
+                           ${formStatus === "success" ? "bg-green-500 text-white" : formStatus === "error" ? "bg-red-500 text-white" : "bg-cyber text-black hover:shadow-[0_0_30px_rgba(0,212,255,0.3)]"}
+                           ${formStatus === "submitting" ? "opacity-70 cursor-not-allowed" : ""}`}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  Enviar Mensagem
-                  <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                  {formStatus === "submitting" && "Enviando..."}
+                  {formStatus === "success" && "Mensagem Enviada!"}
+                  {formStatus === "error" && "Erro ao enviar. Tente novamente."}
+                  {formStatus === "idle" && (
+                    <>
+                      Enviar Mensagem
+                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-0.5 transition-transform duration-300" />
+                    </>
+                  )}
                 </span>
-                <span className="absolute inset-0 bg-white/20 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+                {formStatus === "idle" && (
+                  <span className="absolute inset-0 bg-white/20 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500" />
+                )}
               </motion.button>
             </form>
           </motion.div>
