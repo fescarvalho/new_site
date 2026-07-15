@@ -9,7 +9,7 @@ import Projects from "@/components/Projects";
 
 export default function Home() {
   return (
-    <main className="relative selection:bg-cyber selection:text-black overflow-x-hidden w-full">
+    <main className="relative selection:bg-cyber selection:text-black overflow-clip w-full">
       <Navbar />
 
       {/* ── Scroll-driven SVG container ──
