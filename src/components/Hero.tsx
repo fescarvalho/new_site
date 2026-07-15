@@ -12,13 +12,13 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative z-10 h-screen flex flex-col items-center justify-center px-6">
+    <section className="relative z-10 min-h-[100dvh] flex flex-col items-center justify-center px-6 py-24 md:py-0 overflow-hidden">
       <div className="max-w-4xl w-full flex flex-col items-center text-center">
         {/* Tag line */}
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
           className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.3em] uppercase text-gray-500 mb-8"
         >
           Analista &amp; Desenvolvedor de Sistemas — Data Science &amp; BI
@@ -28,7 +28,7 @@ export default function Hero() {
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight leading-[1.1] text-white"
         >
           Lógica de Sistemas.
@@ -42,7 +42,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.0, duration: 0.8 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
           className="mt-8"
         >
           <Typewriter texts={roles} />
@@ -52,7 +52,7 @@ export default function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.3, duration: 0.8 }}
+          transition={{ delay: 0.7, duration: 0.8 }}
           className="mt-8 max-w-xl text-gray-400 text-base md:text-lg leading-relaxed"
         >
           Transformando dados complexos em decisões claras e lógica de
@@ -63,13 +63,13 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.6, duration: 0.8 }}
-          className="mt-12 flex flex-col sm:flex-row gap-4"
+          transition={{ delay: 0.9, duration: 0.8 }}
+          className="mt-12 flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
         >
           <a
             href="#projetos"
             className="group relative px-8 py-3.5 bg-cyber text-black text-sm font-semibold rounded 
-                       overflow-hidden transition-all duration-300
+                       overflow-hidden transition-all duration-300 w-full sm:w-auto
                        hover:shadow-[0_0_30px_rgba(0,212,255,0.35)]"
           >
             <span className="relative z-10">Ver Projetos</span>
@@ -77,7 +77,7 @@ export default function Hero() {
           </a>
           <a
             href="#contato"
-            className="px-8 py-3.5 border border-white/10 text-sm font-medium rounded text-gray-300
+            className="px-8 py-3.5 border border-white/10 text-sm font-medium rounded text-gray-300 w-full sm:w-auto
                        hover:border-white/30 hover:text-white hover:bg-white/[0.03] transition-all duration-300"
           >
             Entrar em Contato
@@ -89,8 +89,8 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2.2, duration: 1 }}
-        className="absolute bottom-10 flex flex-col items-center gap-3"
+        transition={{ delay: 1.2, duration: 1 }}
+        className="absolute bottom-6 md:bottom-10 flex flex-col items-center gap-3"
       >
         <span className="font-[family-name:var(--font-mono)] text-[10px] tracking-[0.25em] uppercase text-gray-600">
           Scroll

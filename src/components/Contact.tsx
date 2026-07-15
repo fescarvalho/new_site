@@ -446,12 +446,9 @@ export default function Contact() {
         transition={{ duration: 1 }}
         className="relative z-10 mt-32 border-t border-white/[0.04] pt-8 pb-12"
       >
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-center md:justify-between gap-4 text-center md:text-left">
           <span className="font-[family-name:var(--font-mono)] text-[11px] text-gray-600">
             © {new Date().getFullYear()} — Desenhado e desenvolvido por Fernando Carvalho.
-          </span>
-          <span className="font-[family-name:var(--font-mono)] text-[11px] text-gray-700">
-            // built with Next.js + Framer Motion
           </span>
         </div>
       </motion.div>
