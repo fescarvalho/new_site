@@ -247,7 +247,59 @@ function TimelineItem({
   );
 }
 
-/* ── Main About Section (Sticky Scroll) ── */
+function MobileTimelineItem({
+  icon: Icon,
+  title,
+  subtitle,
+  description,
+  index,
+  total,
+}: {
+  icon: React.ElementType;
+  title: string;
+  subtitle: string;
+  description: string;
+  index: number;
+  total: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.5 }}
+      className="relative flex gap-4 group"
+    >
+      <div className="flex flex-col items-center">
+        <div
+          className="w-7 h-7 rounded-full border border-white/[0.06] bg-white/[0.03] flex items-center justify-center
+                      transition-colors duration-500 z-10 bg-black shrink-0 group-hover:border-cyber/80 group-hover:shadow-[0_0_20px_rgba(0,212,255,0.4)]"
+        >
+          <Icon className="w-3.5 h-3.5 text-cyber" strokeWidth={1.5} />
+        </div>
+        {index < total - 1 && (
+          <div className="relative w-px flex-1 my-1 bg-white/[0.04]">
+            <div className="absolute inset-0 bg-cyber/30" />
+          </div>
+        )}
+      </div>
+
+      <div className="pb-8">
+        <span className="font-[family-name:var(--font-mono)] text-[9px] md:text-[10px] tracking-[0.2em] uppercase text-cyber">
+          {subtitle}
+        </span>
+        <h3 className="text-base font-bold text-white group-hover:text-cyber transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="mt-1 text-sm text-gray-300 leading-relaxed max-w-sm">
+          {description}
+        </p>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ── Main About Section (Sticky Scroll on Desktop, Normal on Mobile) ── */
 export default function About() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -288,13 +340,13 @@ export default function About() {
 
   return (
     <section id="sobre">
-      <div ref={wrapperRef} className="relative" style={{ height: "250vh" }}>
-        <div className="sticky top-0 h-screen overflow-hidden flex items-start pt-16 md:items-center md:pt-0">
+      <div ref={wrapperRef} className="relative md:h-[250vh]">
+        <div className="md:sticky md:top-0 md:h-screen overflow-hidden flex flex-col md:flex-row items-start md:items-center pt-20 pb-10 md:pt-0 md:pb-0">
           <HudSVGSticky scrollYProgress={scrollYProgress} />
 
           <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 w-full">
             {/* Section header */}
-            <div className="text-center mb-8">
+            <div className="text-center mb-12 md:mb-8">
               <span className="font-[family-name:var(--font-mono)] text-[10px] tracking-[0.3em] uppercase text-gray-500">
                 // Quem sou eu
               </span>
@@ -304,11 +356,11 @@ export default function About() {
             </div>
 
             {/* Two-column layout */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-12">
               {/* Left — Bio & Stats */}
               <div>
                 <div>
-                  <p className="text-gray-300 leading-relaxed text-xs sm:text-sm">
+                  <p className="text-gray-300 leading-relaxed text-sm">
                     Sou um profissional movido pela interseção entre{" "}
                     <span className="text-white font-medium">lógica de sistemas</span> e{" "}
                     <span className="text-white font-medium">inteligência de dados</span>.
@@ -316,7 +368,7 @@ export default function About() {
                     combinada com pós-graduação em Data Science e BI, me permite
                     enxergar problemas de ponta a ponta.
                   </p>
-                  <p className="mt-2 text-gray-400 leading-relaxed text-xs sm:text-sm">
+                  <p className="mt-4 text-gray-400 leading-relaxed text-sm">
                     Acredito que o melhor software nasce quando a engenharia
                     encontra o pensamento analítico — quando cada funcionalidade
                     é desenhada não apenas para funcionar, mas para gerar impacto
@@ -325,7 +377,7 @@ export default function About() {
                 </div>
 
                 {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-4">
+                <div className="grid grid-cols-2 gap-3 mt-8">
                   <StatCard value="5+" label="Anos de experiência" delay={0} />
                   <StatCard value="30+" label="Projetos entregues" delay={0} />
                   <StatCard value="10+" label="Dashboards BI" delay={0} />
@@ -333,17 +385,32 @@ export default function About() {
                 </div>
               </div>
 
-              {/* Right — Timeline (animates sequentially, stationary container) */}
+              {/* Right — Timeline */}
               <div className="flex flex-col">
-                {timeline.map((item, i) => (
-                  <TimelineItem
-                    key={item.title}
-                    {...item}
-                    index={i}
-                    total={timeline.length}
-                    containerProgress={scrollYProgress}
-                  />
-                ))}
+                {/* Desktop timeline */}
+                <div className="hidden md:flex flex-col">
+                  {timeline.map((item, i) => (
+                    <TimelineItem
+                      key={item.title}
+                      {...item}
+                      index={i}
+                      total={timeline.length}
+                      containerProgress={scrollYProgress}
+                    />
+                  ))}
+                </div>
+
+                {/* Mobile timeline */}
+                <div className="flex md:hidden flex-col">
+                  {timeline.map((item, i) => (
+                    <MobileTimelineItem
+                      key={item.title}
+                      {...item}
+                      index={i}
+                      total={timeline.length}
+                    />
+                  ))}
+                </div>
               </div>
             </div>
           </div>

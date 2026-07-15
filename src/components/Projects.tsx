@@ -125,13 +125,13 @@ export default function Projects() {
     target: targetRef,
   });
 
-  // Moves the slider to the left as you scroll down
+  // Moves the slider to the left as you scroll down (Desktop only)
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-60%"]);
 
   return (
-    <section id="projetos" ref={targetRef} className="relative h-[300vh] bg-black">
-      {/* Sticky container that stays on screen while scrolling the 300vh height */}
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
+    <section id="projetos" ref={targetRef} className="relative md:h-[300vh] bg-black py-20 md:py-0">
+      {/* Sticky container that stays on screen while scrolling the 300vh height on Desktop */}
+      <div className="md:sticky md:top-0 md:h-screen overflow-hidden flex flex-col justify-center">
         
         {/* Subtle background element */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyber/5 rounded-full blur-[120px] pointer-events-none" />
@@ -150,17 +150,43 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Horizontal Slider Track */}
+        {/* Mobile: Native Horizontal Scroll */}
+        <div className="flex md:hidden gap-6 px-6 overflow-x-auto snap-x snap-mandatory pb-8 relative z-10 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+          {projects.map((project, index) => (
+            <div key={project.title} className="snap-center shrink-0">
+              <ProjectCard project={project} index={index} />
+            </div>
+          ))}
+
+          {/* See more card (Mobile) */}
+          <div className="snap-center w-[85vw] h-[380px] shrink-0 flex flex-col items-center justify-center p-8 rounded-2xl bg-white/[0.01] border border-white/[0.05] border-dashed hover:border-cyber/30 transition-colors duration-500 group">
+            <div className="w-14 h-14 rounded-full bg-white/[0.03] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 group-hover:bg-cyber/10">
+              <GithubIcon className="w-6 h-6 text-gray-500 group-hover:text-cyber transition-colors" />
+            </div>
+            <h3 className="text-lg font-bold text-white text-center mb-2">Explorar mais</h3>
+            <p className="text-sm text-gray-500 text-center mb-8">Veja todos os repositórios no GitHub.</p>
+            <a
+              href="https://github.com/fescarvalho"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-full bg-white/[0.03] border border-white/[0.05] text-sm text-gray-300 hover:text-white hover:border-cyber/50 transition-all"
+            >
+              Acessar GitHub
+            </a>
+          </div>
+        </div>
+
+        {/* Desktop: Horizontal Slider Track */}
         <motion.div 
           style={{ x }} 
-          className="flex gap-6 md:gap-8 px-6 md:px-12 lg:px-24 items-center relative z-10"
+          className="hidden md:flex gap-6 md:gap-8 px-6 md:px-12 lg:px-24 items-center relative z-10"
         >
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
 
-          {/* See more card */}
-          <div className="w-[85vw] md:w-[300px] h-[380px] shrink-0 flex flex-col items-center justify-center p-8 rounded-2xl bg-white/[0.01] border border-white/[0.05] border-dashed hover:border-cyber/30 transition-colors duration-500 group">
+          {/* See more card (Desktop) */}
+          <div className="w-[300px] h-[380px] shrink-0 flex flex-col items-center justify-center p-8 rounded-2xl bg-white/[0.01] border border-white/[0.05] border-dashed hover:border-cyber/30 transition-colors duration-500 group">
             <div className="w-14 h-14 rounded-full bg-white/[0.03] flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500 group-hover:bg-cyber/10">
               <GithubIcon className="w-6 h-6 text-gray-500 group-hover:text-cyber transition-colors" />
             </div>
