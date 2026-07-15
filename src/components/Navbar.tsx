@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Terminal } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { label: "Sobre", href: "#sobre" },
@@ -26,20 +26,19 @@ export default function Navbar() {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? "glass py-3" : "py-5 bg-transparent"
-      }`}
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${scrolled ? "glass py-3" : "py-5 bg-transparent"
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <a href="#" className="flex items-center gap-2.5 group">
-          <Terminal
-            className="w-5 h-5 text-cyber group-hover:rotate-12 transition-transform duration-300"
-            strokeWidth={2}
+        <a href="#" className="flex items-center group py-2">
+          <Image
+            src="/logo.png"
+            alt="Fernando Carvalho"
+            width={240}
+            height={80}
+            className="h-8 md:h-10 w-auto object-contain scale-[1.5] md:scale-[2] origin-left group-hover:scale-[1.6] md:group-hover:scale-[2.1] transition-transform duration-300"
           />
-          <span className="font-[family-name:var(--font-mono)] text-sm font-semibold tracking-tight text-white">
-            portfolio<span className="text-cyber">.</span>dev
-          </span>
         </a>
 
         {/* Desktop nav */}

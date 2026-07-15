@@ -16,6 +16,14 @@ export const metadata: Metadata = {
   title: "Portfólio — Analista & Desenvolvedor de Sistemas | Data Science & BI",
   description:
     "Portfólio pessoal de Analista/Desenvolvedor de Sistemas com Pós-Graduação em Data Science e Business Intelligence. Transformando dados complexos em decisões claras.",
+  icons: {
+    icon: [
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({

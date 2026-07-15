@@ -414,8 +414,8 @@ export default function Contact() {
             {/* Socials */}
             <div className="flex flex-col gap-3 mt-2">
               <SocialLink href="mailto:seu@email.com" icon={Mail} label="Email" delay={0} />
-              <SocialLink href="https://github.com/" icon={Code2} label="GitHub" delay={0.08} />
-              <SocialLink href="https://linkedin.com/" icon={ExternalLink} label="LinkedIn" delay={0.16} />
+              <SocialLink href="https://github.com/fescarvalho" icon={Code2} label="GitHub" delay={0.08} />
+              <SocialLink href="https://www.linkedin.com/in/fecarvalhodev/" icon={ExternalLink} label="LinkedIn" delay={0.16} />
             </div>
 
             {/* Corner SVG accent */}
@@ -448,7 +448,7 @@ export default function Contact() {
       >
         <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
           <span className="font-[family-name:var(--font-mono)] text-[11px] text-gray-600">
-            © {new Date().getFullYear()} — Desenhado & desenvolvido com precisão.
+            © {new Date().getFullYear()} — Desenhado e desenvolvido por Fernando Carvalho.
           </span>
           <span className="font-[family-name:var(--font-mono)] text-[11px] text-gray-700">
             // built with Next.js + Framer Motion
